@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  // 用户ID
+  id         BigInt   @id @default(autoincrement()) @map("user_id")
+  // 账号
+  username   String   @unique @map("username")
+  // 密码
+  password   String   @map("password")
+  // 用户名
+  name       String   @map("name")
+  // 头像地址
+  avatarUrl  String   @default("https://image-1308319148.cos.ap-chengdu.myqcloud.com/main/%E4%B8%AA%E4%BA%BA%E5%A4%B4%E5%83%8F.png") @map("avatar_url")
+  // 邮箱
+  email      String   @unique @map("email")
+  // 手机号
+  phone      String   @unique @map("phone")
+  // 是否删除
+  isDeleted  Boolean  @default(false) @map("is_deleted")
+  // 是否禁用
+  isDisabled Boolean  @default(false) @map("is_disabled")
+  // 创建时间
+  createdAt  DateTime @default(dbgenerated("NOW()")) @db.DateTime @map("created_at")
+  // 更新时间
+  updatedAt  DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.Timestamp(0) @map("updated_at")
+  // 创建人
+  createdBy  String   @map("created_by")
+  // 更新人
+  updatedBy  String   @map("updated_by")
+
+  @@map("user")
+}

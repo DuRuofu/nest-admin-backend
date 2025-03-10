@@ -10,6 +10,7 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User as UserModel } from '@prisma/client';
 
 @Controller('user')
 export class UserController {
@@ -26,8 +27,9 @@ export class UserController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+  findOne(@Param('id') id: string): Promise<UserModel> {
+    console.log(id);
+    return this.userService.findOne({ id: Number(id) });
   }
 
   @Patch(':id')
