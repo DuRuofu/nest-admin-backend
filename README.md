@@ -44,56 +44,44 @@ $ pnpm run start:dev
 # production mode
 $ pnpm run start:prod
 ```
-
-## Run tests
-
-```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## 项目目录
 
 ```bash
-$ pnpm install -g mau
-$ mau deploy
+nestjs-project/
+│── src/
+│   ├── modules/              # 业务模块
+│   │   ├── user/             # 用户模块
+│   │   │   ├── dto/          # 数据传输对象 (DTO)
+│   │   │   ├── entities/     # 数据库实体 (TypeORM / Prisma)
+│   │   │   ├── user.controller.ts
+│   │   │   ├── user.service.ts
+│   │   │   ├── user.module.ts
+│   │   ├── auth/             # 认证模块 (JWT / Passport)
+│   │   ├── role/             # 角色权限模块
+│   │   ├── log/              # 日志管理模块
+│   │   ├── device/           # 设备管理模块
+│   ├── common/               # 通用代码
+│   │   ├── filters/          # 全局异常过滤器
+│   │   ├── guards/           # 守卫 (权限控制)
+│   │   ├── interceptors/     # 拦截器 (日志、数据格式化)
+│   │   ├── decorators/       # 自定义装饰器
+│   │   ├── pipes/            # 数据校验管道
+│   │   ├── constants.ts      # 常量
+│   ├── config/               # 配置文件
+│   │   ├── config.module.ts  # 配置模块
+│   │   ├── config.service.ts # 配置服务
+│   │   ├── env/              # 配置环境变量 (dev, prod)
+│   ├── database/             # 数据库相关
+│   │   ├── prisma/           # Prisma ORM 相关
+│   │   ├── migrations/       # 数据库迁移文件
+│   │   ├── database.module.ts
+│   ├── main.ts               # 入口文件
+│   ├── app.module.ts         # 根模块
+│── test/                     # 测试
+│── scripts/                  # 脚本 (数据库初始化、自动化任务)
+│── .env                      # 环境变量
+│── .gitignore
+│── package.json
+│── tsconfig.json
+│── README.md
 ```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
