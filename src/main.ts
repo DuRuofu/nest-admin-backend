@@ -7,13 +7,12 @@ async function bootstrap() {
 
   // swagger
   const options = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
-    .setVersion('1.0')
-    .addTag('cats')
+    .setTitle('Nest-Admin API')
+    .setDescription('Nest-Admin项目的接口文档')
+    .setVersion('1.0.0')
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api-docs', app, document);
 
   await app.listen(process.env.PORT ?? 3000);
 }

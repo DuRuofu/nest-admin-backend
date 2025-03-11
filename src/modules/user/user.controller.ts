@@ -11,10 +11,12 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User as UserModel } from '@prisma/client';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 @Controller('user')
+@ApiTags('用户模块')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
@@ -27,6 +29,7 @@ export class UserController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: '获取单个用户的信息', description: '具体描述XXX' })
   findOne(@Param('id') id: string): Promise<UserModel> {
     console.log(id);
     return this.userService.findOne({ id: Number(id) });

@@ -4,8 +4,10 @@ import { PrismaClient } from '@prisma/client';
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
   constructor() {
+    // 设置 log
     super({ log: ['query', 'info', 'warn', 'error'] });
 
+    // 添加中间件(处理bigint类型)
     this.$use(async (params, next) => {
       const before = Date.now();
       const result = await next(params);
