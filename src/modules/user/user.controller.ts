@@ -17,7 +17,7 @@ import { UserPipe } from './user.pipe';
 @Controller('user')
 @ApiTags('用户管理')
 export class UserController {
-  constructor(private readonly userService: UserService) { }
+  constructor(private readonly userService: UserService) {}
 
   @Post()
   create(@Body(UserPipe) createUserDto: CreateUserDto) {
