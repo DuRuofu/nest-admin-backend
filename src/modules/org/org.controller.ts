@@ -10,8 +10,10 @@ import {
 import { OrgService } from './org.service';
 import { CreateOrgDto } from './dto/create-org.dto';
 import { UpdateOrgDto } from './dto/update-org.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('org')
+@ApiTags('组织管理')
 export class OrgController {
   constructor(private readonly orgService: OrgService) {}
 

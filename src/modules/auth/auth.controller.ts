@@ -10,8 +10,10 @@ import {
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('auth')
+@ApiTags('鉴权管理')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 

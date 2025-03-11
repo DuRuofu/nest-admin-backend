@@ -15,13 +15,11 @@ datasource db {
 
 model User {
   // 用户ID
-  id         BigInt   @id @default(autoincrement()) @map("user_id")
-  // 账号
+  id         String   @id @default(cuid()) @map("user_id")
+  // 用户名
   username   String   @unique @map("username")
   // 密码
   password   String   @map("password")
-  // 用户名
-  name       String   @map("name")
   // 头像地址
   avatarUrl  String   @default("https://image-1308319148.cos.ap-chengdu.myqcloud.com/main/%E4%B8%AA%E4%BA%BA%E5%A4%B4%E5%83%8F.png") @map("avatar_url")
   // 邮箱
@@ -33,13 +31,50 @@ model User {
   // 是否禁用
   isDisabled Boolean  @default(false) @map("is_disabled")
   // 创建时间
-  createdAt  DateTime @default(dbgenerated("NOW()")) @db.DateTime @map("created_at")
+  CreatedTime    DateTime @default(now()) @map("created_time")
   // 更新时间
-  updatedAt  DateTime @default(dbgenerated("NOW() ON UPDATE NOW()")) @db.Timestamp(0) @map("updated_at")
-  // 创建人
-  createdBy  String   @map("created_by")
-  // 更新人
-  updatedBy  String   @map("updated_by")
+  UpdatedTime    DateTime @updatedAt @map("updated_time")
 
   @@map("user")
+}
+
+
+// 角色表
+model Role {
+  // 角色ID
+  id          String   @id @default(cuid()) @map("role_id")
+  // 角色名称
+  name        String   @map("name")
+  // 角色值
+  value       String   @unique @map("value")
+  // 角色描述
+  description String   @default("暂无描述") @map("description")
+  // 是否删除
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+  // 是否禁用
+  isDisabled  Boolean  @default(false) @map("is_disabled")
+  // 创建时间
+  createdTime DateTime @default(now()) @map("created_time")
+  // 更新时间
+  updatedTime DateTime @updatedAt @map("updated_time")
+
+  @@map("role")
+}
+
+// 权限表
+model Permission {
+  // 权限ID
+  id           String   @id @default(cuid())  @map("permission_id")
+  // 权限名称
+  name        String   @map("name")
+  // 是否删除
+  isDeleted   Boolean  @default(false) @map("is_deleted")
+  // 是否禁用
+  isDisabled  Boolean  @default(false) @map("is_disabled")
+  // 创建时间
+  createdTime DateTime @default(now()) @map("created_time")
+  // 更新时间
+  updatedTime DateTime @updatedAt @map("updated_time")
+
+  @@map("permission")
 }

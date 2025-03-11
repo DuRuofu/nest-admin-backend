@@ -17,6 +17,14 @@ export class CreateUserDto {
 	@IsEmail({}, { message: '邮箱格式不正确' })
 	@IsNotEmpty({ message: '邮箱不能为空' })
 	email: string;
+	
+	@ApiProperty({
+		description: '用户电话',
+		example: '1234567890',
+	})
+	@IsString()
+	@IsNotEmpty({ message: '电话不能为空' })
+	phone: string;
 
 	@ApiProperty({
 		description: '用户密码，至少6位',

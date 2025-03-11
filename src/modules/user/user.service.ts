@@ -8,9 +8,16 @@ import { User, Prisma } from '@prisma/client';
 export class UserService {
   constructor(private prisma: PrismaService) {}
   create(createUserDto: CreateUserDto) {
+    // // 假设 createdBy 和 updatedBy 取自当前登录用户
+    // const createdBy = 'system'; // 或者从请求的用户信息中获取
+    // const updatedBy = createdBy;
     // 打印参数
     console.log(createUserDto);
-    return 'This action adds a new user';
+    return this.prisma.user.create({
+      data: {
+        ...createUserDto
+      },
+    });
   }
 
   findAll() {

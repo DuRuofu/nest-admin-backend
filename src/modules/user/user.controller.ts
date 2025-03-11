@@ -15,7 +15,7 @@ import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { UserPipe } from './user.pipe';
 
 @Controller('user')
-@ApiTags('用户模块')
+@ApiTags('用户管理')
 export class UserController {
   constructor(private readonly userService: UserService) { }
 
@@ -33,7 +33,7 @@ export class UserController {
   @ApiOperation({ summary: '获取单个用户的信息', description: '具体描述XXX' })
   findOne(@Param('id') id: string): Promise<UserModel> {
     console.log(id);
-    return this.userService.findOne({ id: Number(id) });
+    return this.userService.findOne({ id: String(id) });
   }
 
   @Patch(':id')
