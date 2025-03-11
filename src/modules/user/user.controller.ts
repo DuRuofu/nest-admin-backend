@@ -12,6 +12,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User as UserModel } from '@prisma/client';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { UserPipe } from './user.pipe';
 
 @Controller('user')
 @ApiTags('用户模块')
@@ -19,7 +20,7 @@ export class UserController {
   constructor(private readonly userService: UserService) { }
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
+  create(@Body(UserPipe) createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 

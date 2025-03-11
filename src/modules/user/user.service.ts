@@ -8,6 +8,8 @@ import { User, Prisma } from '@prisma/client';
 export class UserService {
   constructor(private prisma: PrismaService) {}
   create(createUserDto: CreateUserDto) {
+    // 打印参数
+    console.log(createUserDto);
     return 'This action adds a new user';
   }
 
