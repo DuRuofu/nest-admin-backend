@@ -18,10 +18,12 @@ model User {
   id         String   @id @default(cuid()) @map("user_id")
   // 用户名
   username   String   @unique @map("username")
+  // 昵称
+  nickname   String   @default("未命名") @map("nickname")
   // 密码
   password   String   @map("password")
   // 头像地址
-  avatarUrl  String   @default("https://image-1308319148.cos.ap-chengdu.myqcloud.com/main/%E4%B8%AA%E4%BA%BA%E5%A4%B4%E5%83%8F.png") @map("avatar_url")
+  avatar     String   @default("https://image-1308319148.cos.ap-chengdu.myqcloud.com/main/%E4%B8%AA%E4%BA%BA%E5%A4%B4%E5%83%8F.png") @map("avatar")
   // 邮箱
   email      String   @unique @map("email")
   // 手机号
