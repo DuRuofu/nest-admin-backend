@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ConfigService } from '@nestjs/config';
-import { ConfigKey } from './config/config';
+import { ConfigKey } from './config/common.config';
 
 @Controller()
 export class AppController {

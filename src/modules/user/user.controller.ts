@@ -1,11 +1,14 @@
 import {
   Controller,
+  Inject,
   Get,
   Post,
   Body,
   Patch,
   Param,
   Delete,
+  Logger,
+  LoggerService,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -17,7 +20,11 @@ import { UserPipe } from './user.pipe';
 @Controller('user')
 @ApiTags('用户管理')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly logger: Logger,
+    private readonly userService: UserService) { 
+    this.logger.log('UserController init');
+    }
 
   @Post()
   create(@Body(UserPipe) createUserDto: CreateUserDto) {

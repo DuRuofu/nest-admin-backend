@@ -1,20 +1,27 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { WinstonModule } from 'nest-winston';
+import 'winston-daily-rotate-file'
+
+import winstonLogger from './config/winston.config';
+import swaggerOptions from './config/swagger.config';
+import { HttpExceptionFilter } from './filters/http-exception.filter';
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+
+  const app = await NestFactory.create(AppModule, {
+    logger: WinstonModule.createLogger(winstonLogger),
+  });
 
   app.useGlobalPipes(new ValidationPipe());
 
-  // swagger
-  const options = new DocumentBuilder()
-    .setTitle('Nest-Admin API')
-    .setDescription('Nest-Admin项目的接口文档')
-    .setVersion('1.0.0')
-    .build();
-  const document = SwaggerModule.createDocument(app, options);
+  // 配置swagger
+  const document = SwaggerModule.createDocument(app, swaggerOptions);
   SwaggerModule.setup('api-docs', app, document);
+
+  // 配置全局异常过滤器(只能有1个)
+  app.useGlobalFilters(new HttpExceptionFilter(winstonLogger));
 
   await app.listen(process.env.SERVER_PORT_HTTP ?? 3000);
 }

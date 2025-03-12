@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Global, Logger, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 
@@ -25,9 +25,11 @@ const ConfigModuleConfig = {
   })
 }  
 
+@Global()
 @Module({
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, Logger],
+  exports: [Logger],
   imports: [
     ConfigModule.forRoot(ConfigModuleConfig),
     PrismaModule,
