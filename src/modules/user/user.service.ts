@@ -6,13 +6,21 @@ import { User, Prisma } from '@prisma/client';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+
+  constructor(private prisma: PrismaService) { }
+  
+  // 创建用户
   create(createUserDto: CreateUserDto) {
-    // // 假设 createdBy 和 updatedBy 取自当前登录用户
-    // const createdBy = 'system'; // 或者从请求的用户信息中获取
-    // const updatedBy = createdBy;
-    // 打印参数
-    console.log(createUserDto);
+    // 检查用户名是否重复
+    const user = this.prisma.user.findUnique({
+      where: {
+        username: createUserDto.username,
+      },
+    });
+    if (user) {
+      throw new Error('用户名已存在');
+    }
+    
     return this.prisma.user.create({
       data: {
         ...createUserDto,
@@ -21,7 +29,7 @@ export class UserService {
   }
 
   findAll() {
-    return `This action returns all user`;
+    return this.prisma.user.findMany();
   }
 
   async findOne(
@@ -36,7 +44,11 @@ export class UserService {
     return `This action updates a #${id} user`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  remove(id: string) {
+    return this.prisma.user.delete({
+      where: {
+        id: id,
+      },
+    });
   }
 }

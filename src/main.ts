@@ -24,6 +24,8 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter(winstonLogger));
 
   await app.listen(process.env.SERVER_PORT_HTTP ?? 3000);
+  console.log(`Application is running on: http://${process.env.PROJECT_DOMAIN}:${ process.env.SERVER_PORT_HTTP }`);
+  console.log(`Swagger is running on: http://${process.env.PROJECT_DOMAIN}:${process.env.SERVER_PORT_HTTP}/api-docs`);
 }
 
 bootstrap();

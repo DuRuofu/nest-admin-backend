@@ -25,12 +25,10 @@ export class UserController {
     this.logger.log('UserController init');
     }
 
-  @Post()
-  create(@Body(UserPipe) createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
-  }
 
+  
   @Get()
+  @ApiOperation({ summary: '查询全体用户的信息', description: '不分页，仅做测试使用' })
   findAll() {
     return this.userService.findAll();
   }
@@ -43,12 +41,14 @@ export class UserController {
   }
 
   @Patch(':id')
+  @ApiOperation({ summary: '更新用户信息'})
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(+id, updateUserDto);
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: '删除用户' })
   remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+    return this.userService.remove(id);
   }
 }
