@@ -8,15 +8,19 @@ import {
   Param,
   Delete,
   Logger,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User as UserModel } from '@prisma/client';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import { UserPipe } from './user.pipe';
+import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
+
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('user')
+@UseGuards(AuthGuard('jwt'))
+@ApiBearerAuth()
 @ApiTags('用户管理')
 export class UserController {
   constructor(
@@ -25,8 +29,6 @@ export class UserController {
     this.logger.log('UserController init');
     }
 
-
-  
   @Get()
   @ApiOperation({ summary: '查询全体用户的信息', description: '不分页，仅做测试使用' })
   findAll() {

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../../database/prisma/prisma.service';
@@ -7,19 +7,24 @@ import { User, Prisma } from '@prisma/client';
 @Injectable()
 export class UserService {
 
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService,
+        private readonly logger: Logger,
+  ) { }
   
   // 创建用户
   create(createUserDto: CreateUserDto) {
-    // 检查用户名是否重复
-    const user = this.prisma.user.findUnique({
-      where: {
-        username: createUserDto.username,
-      },
-    });
-    if (user) {
-      throw new Error('用户名已存在');
-    }
+    // // 检查用户名是否重复
+    // const user = this.prisma.user.findUnique({
+    //   where: {
+    //     username: createUserDto.username,
+    //   },
+    // });
+    // if (user) {
+    //   this.logger.log(user);
+    //   throw new Error('用户名已存在');
+      
+      
+    // }
     
     return this.prisma.user.create({
       data: {

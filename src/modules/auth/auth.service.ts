@@ -18,7 +18,7 @@ export class AuthService {
   
   // 登录
   async login(LoginAuthDto: LoginAuthDto) {
-
+    // 验证用户名密码
     const user = await this.prisma.user.findUnique({
       where: {
         username: LoginAuthDto.username,
@@ -27,10 +27,10 @@ export class AuthService {
     if (user?.password !== LoginAuthDto.password) {
       throw new UnauthorizedException();
     }
-    const payload = { sub: user.id, username: user.username };
 
-    
-    //const access_token = await this.jwtService.signAsync(payload);
+    // 生成token
+    const payload = { sub: user.id, username: user.username };
+    const access_token = await this.jwtService.signAsync(payload);
 
     this.logger.log(`用户 ${user.username} 登录成功`);
 
@@ -42,7 +42,7 @@ export class AuthService {
         nickname: '小铭',
         roles: ['admin'],
         permissions: ['*:*:*'],
-        //accessToken: access_token,
+        accessToken: access_token,
         refreshToken: 'eyJhbGciOiJIUzUxMiJ9.adminRefresh',
         expires: '2030/10/30 00:00:00',
       },
